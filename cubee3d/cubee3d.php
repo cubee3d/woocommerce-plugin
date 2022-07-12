@@ -205,12 +205,14 @@ function listen_to_postMessage()
 {
   ob_start();
   $apikey = get_option('dbi_example_plugin_options');
+  $currencyCode = get_woocommerce_currency();
   $cartURL = wc_get_cart_url();
 ?>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script>
     var cubeeVars = <?php echo json_encode($apikey); ?>;
     var cartURL = <?php echo json_encode($cartURL); ?>;
+    var currencyCode = <?php echo json_encode($currencyCode); ?>;
     window.addEventListener('message', event => {
       event.stopPropagation()
       // * If this is the handshake, then send the apikey
@@ -220,7 +222,8 @@ function listen_to_postMessage()
         if (event.data.handshake) {
           document.querySelector('iframe').contentWindow.postMessage({
             handshake: {
-              apiKey: cubeeVars.api_key
+              apiKey: cubeeVars.api_key,
+              currencyCode
             }
           }, '*')
           // * In production, use real ondemand url
