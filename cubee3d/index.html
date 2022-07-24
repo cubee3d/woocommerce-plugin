@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <iframe height="800" width="1700" src="https://ondemand.cubee3d.com/?k=55"></iframe>
+    <script>
+        console.log('listening')
+        window.addEventListener('message', event => {
+            // IMPORTANT: check the origin of the data! 
+            // if (event.origin.startsWith('https://ondemand.staging.cubee3d.com')) {
+            // The data was sent from your site.
+            // Data sent with postMessage is stored in event.data:
+            console.log(event.data);
+        })
+    </script>
+</body>
+
+</html>
