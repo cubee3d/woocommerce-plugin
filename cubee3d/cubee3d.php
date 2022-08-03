@@ -4,7 +4,7 @@
  * Plugin Name: Cubee3D
  * Plugin URI: https://www.cubee3d.com/
  * Description: Let your customers upload a 3D file for On-Demand printing service
- * Version: 1.3
+ * Version: 1.9
  * Author: Lidor Baum
  * Author URI: https://www.linkedin.com/in/lidorbaum/
  **/ 
@@ -176,6 +176,7 @@ function dbi_register_settings()
   add_settings_section('api_settings', 'On Demand Settings', 'dbi_plugin_section_text', 'dbi_example_plugin');
 
   add_settings_field('dbi_plugin_setting_api_key', 'Cubee 3D Shop API Key', 'dbi_plugin_setting_api_key', 'dbi_example_plugin', 'api_settings');
+  add_settings_field('dbi_plugin_setting_language', 'Plugin UI Language', 'dbi_plugin_setting_language', 'dbi_example_plugin', 'api_settings');
 }
 add_action('admin_init', 'dbi_register_settings');
 
@@ -200,6 +201,13 @@ function dbi_plugin_setting_api_key()
   echo "<input id='dbi_plugin_setting_api_key' name='dbi_example_plugin_options[api_key]' type='text' value='" . esc_attr($options['api_key']) . "' />";
 }
 
+function dbi_plugin_setting_language()
+{
+  $options = get_option('dbi_example_plugin_options');
+  // echo "<input id='dbi_plugin_setting_api_key' name='dbi_example_plugin_options[api_key]' type='radio' value='" . esc_attr($options['api_key']) . "' />";
+  echo "<input id='dbi_plugin_setting_language' name='dbi_example_plugin_options[language]' type='text' value='" . esc_attr($options['language']) . "' />";
+
+}
 
 function listen_to_postMessage()
 {
@@ -223,6 +231,7 @@ function listen_to_postMessage()
           document.querySelector('iframe').contentWindow.postMessage({
             handshake: {
               apiKey: cubeeVars.api_key,
+              lang: cubeeVars.language,
               currencyCode
             }
           }, '*')
