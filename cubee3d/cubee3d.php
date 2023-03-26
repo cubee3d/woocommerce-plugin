@@ -225,7 +225,7 @@ function listen_to_postMessage()
       event.stopPropagation()
       // * If this is the handshake, then send the apikey
       // if (!event.origin.startsWith('https://ondemand.cubee3d.com')) {
-      if (!event.origin.startsWith('https://ondemand.staging.cubee3d.com') || !event.origin.startsWith('https://ondemand.cubee3d.com')) {
+      if (event.origin.startsWith('https://ondemand.staging.cubee3d.com') || event.origin.startsWith('https://ondemand.cubee3d.com')) {
       // if (event.origin.startsWith('http://localhost')) {
         if (event.data.handshake) {
           document.querySelector('iframe').contentWindow.postMessage({
